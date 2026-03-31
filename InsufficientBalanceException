@@ -1,1 +1,109 @@
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections;
+
+namespace ConsoleApp3
+{
+    class Program
+    {
+         
+        static void Main(string[] args)
+        {
+
+            Account acc = new Account();
+            try
+            {
+                acc.Deposit(-899);
+               
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            try
+            {
+               
+                acc.Withdraw(-98);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            //AuthService log = new AuthService();
+            //try
+            //{
+            //    log.Login("asmaa","");
+            //}
+            //catch (Exception e)
+            //{
+
+            //    Console.WriteLine(e.Message);
+            //}
+            Console.ReadKey();
+        } 
+    }
+
+
+}
+
+
+public class AuthService
+{
+    public void Login(string username, string password)
+    {
+        string usr = "wafaa";string pass = "lpo4787";
+        if(string.IsNullOrEmpty(username)||username!= usr)
+        {
+            throw new ConsoleApp3.LoginExptions("UserNotFoundException");
+        }
+        if (string.IsNullOrEmpty(password)||password!=pass)
+        {
+            throw new ConsoleApp3.LoginExptions("InvalidPasswordException");
+
+        }
+        Console.WriteLine("logoin success");
+    }
+}
+
+public   class Account
+{
+    double Userbalance = 4500;
+  
+    public void Withdraw( double balance)
+    {
+        
+        if(balance> Userbalance||balance<=0)
+        {
+            throw new InsufficientBalanceException("Invalid Amount for withdrow process");
+        }
+        Userbalance -= balance;
+    }
+    public void Deposit(double balance)
+    {
+
+        if (balance<=0)
+        {
+             throw new InsufficientBalanceException("Invalid Amount for deposit process");
+        }
+        Userbalance += balance;
+    }
+}
+
+public class InsufficientBalanceException : Exception
+{
+    public InsufficientBalanceException()
+    {
+    }
+
+    public InsufficientBalanceException(string msg) : base(msg)
+    {
+    }
+    public InsufficientBalanceException(string msg, Exception inner) : base(msg, inner)
+    {
+    }
+}
